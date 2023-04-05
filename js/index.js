@@ -7,19 +7,24 @@ const TimerControls = {
 
     playTimer() {
         clearTimeout(Timer.timerTimeOut)
+        Timer.pressButton()
         Timer.countDown()
     },
 
     stopTimer() {
+        Timer.pressButton()
         clearTimeout(Timer.timerTimeOut)
     },
 
     plusFive() {
+        Timer.pressButton()
         const newMinutes = Number(Timer.minutes.textContent)
         Timer.minutes.textContent = String(newMinutes + 5).padStart(2, 0)    
     },
 
     minusFive() {
+        Timer.pressButton()
+
         const newMinutes = Number(Timer.minutes.textContent)
 
         if((newMinutes - 5) <= 0) {
@@ -37,6 +42,9 @@ const Timer = {
     seconds: document.querySelector('#seconds'),
     timerTimeOut: 0,
 
+    kitchenTimer: new Audio("https://github.com/maykbrito/automatic-video-creator/blob/master/audios/kichen-timer.mp3?raw=true"),
+    buttonPressAudio: new Audio("https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true"),
+
     countDown() {
         Timer.timerTimeOut = setTimeout(function() {
             let min = Number(Timer.minutes.textContent)
@@ -45,7 +53,7 @@ const Timer = {
             let isFinished = Timer.minutes.textContent == 0 && Timer.seconds.textContent == 0
 
             if(isFinished) {
-                AmbientSound.timerEnd()
+                Timer.timerEnd()
                 return
             }
 
@@ -60,7 +68,13 @@ const Timer = {
         }, 1000)
     },
 
+    pressButton() {
+        Timer.buttonPressAudio.play()
+    },
 
+    timerEnd() {
+        Timer.kitchenTimer.play()
+    },
 }
 
 const AmbientSound = {
@@ -74,7 +88,7 @@ const AmbientSound = {
     bgStore: new Audio('assets/Cafeteria.wav'),
     bgFire: new Audio('assets/Lareira.wav'),
 
-    kitchenTimer: new Audio("https://github.com/maykbrito/automatic-video-creator/blob/master/audios/kichen-timer.mp3?raw=true"),
+    
 
     soundOfNature() {
         if(AmbientSound.forestButton.classList.contains('soundSelect')) {
@@ -144,9 +158,7 @@ const AmbientSound = {
         }
     },
 
-    timerEnd() {
-        AmbientSound.kitchenTimer.play()
-    },
+    
 }
 
 TimerControls.play.addEventListener('click', TimerControls.playTimer)
