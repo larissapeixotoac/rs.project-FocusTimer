@@ -61,8 +61,6 @@ button {
 
 .buttons button {
     position: relative;
-    transition-duration: 0.4s;
-    -webkit-transition-duration: 0.4s; /* Safari */
     border-radius: 6rem;
 }
 
@@ -120,20 +118,16 @@ button.select input, button.select input::-webkit-slider-thumb {
 }
 
 .light {
-    position: absolute;
-    
+    position: absolute;    
     top: 6rem;
-    right: 6rem;
-    
+    right: 6rem;    
     cursor: pointer;
 }
 
 .dark {
-    position: absolute;
-    
+    position: absolute;    
     top: 6.4rem;
-    right: 6.4rem;
-    
+    right: 6.4rem;    
     cursor: pointer;
 }
 
