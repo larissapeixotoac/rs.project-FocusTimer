@@ -230,14 +230,14 @@ input.dark-mode, input.dark-mode::-webkit-slider-thumb {
 
     .light-mode {
         transition: .5s;
-        top: 3rem;
-        right: 3rem;
+        top: 2rem;
+        right: 2rem;
     }
 
     .night-mode {
         transition: .5s;
-        top: 3.4rem;
-        right: 3.4rem;
+        top: 2.3rem;
+        right: 2.3rem;
     }
     
 }
