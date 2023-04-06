@@ -10,6 +10,7 @@
 }
 
 body {
+    /* position: relative; */
     display: flex;
     align-items: center; /* Y */
     justify-content: center; /* X */
@@ -19,6 +20,7 @@ body {
     min-height: 100vh;
 
     font-family: 'Roboto', sans-serif;    
+
 }
 
 .timer-functions {
@@ -106,6 +108,104 @@ button {
     fill: white;
 }
 
+button.select input, button.select input::-webkit-slider-thumb {
+    background: white;
+}
+
+/* Light and Dark Mode  */
+
+.disable {
+    display: none;
+    opacity: 0;
+}
+
+.light {
+    position: absolute;
+    
+    top: 6rem;
+    right: 6rem;
+    
+    cursor: pointer;
+}
+
+.dark {
+    position: absolute;
+    
+    top: 6.4rem;
+    right: 6.4rem;
+    
+    cursor: pointer;
+}
+
+body.dark-mode {
+    background-color: #121214;
+}
+
+.timer.dark-mode {
+    color: white;
+}
+
+.buttons button.dark-mode, .sounds-wrapper button.dark-mode {
+    background-color: #121214;
+}
+
+.sounds-wrapper button svg.dark-mode path:first-child {
+    fill: #29292E;
+}
+
+.sounds-wrapper button svg.dark-mode path:last-child {
+    fill: #C4C4CC;
+}
+
+button.dark-mode.soundSelect path:nth-child(1){
+    transition: 0.8s;
+    fill: #0A3442;
+}
+
+/* Volume  */
+
+.forest-card, .rain-card, .store-card, .camp-card {
+    position: relative;
+}
+
+input {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #323238;
+    outline: none;
+    border-radius: .5rem;
+
+    position: absolute;
+    left: 2.4rem;
+    top: 12rem;
+    width: 9rem;
+    height: .4rem;
+    
+}
+
+input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%; 
+    background: #323238;
+    cursor: pointer;
+}
+  
+input::-moz-range-thumb {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: #323238;
+    cursor: pointer; 
+}
+
+input.dark-mode, input.dark-mode::-webkit-slider-thumb {
+    background: white;
+}
+
+
 @keyframes bigger {
     0% {
         transform: scale(1);        
@@ -127,6 +227,19 @@ button {
         min-width: 90vw;
         min-height: 90vh;
     }
+
+    .light-mode {
+        transition: .5s;
+        top: 3rem;
+        right: 3rem;
+    }
+
+    .night-mode {
+        transition: .5s;
+        top: 3.4rem;
+        right: 3.4rem;
+    }
+    
 }
 
 

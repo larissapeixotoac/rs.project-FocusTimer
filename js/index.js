@@ -1,199 +1,93 @@
-const TimerControls = {
-    play: document.querySelector('.play'),
-    stop: document.querySelector('.stop'),
-    plus: document.querySelector('.plus'),
-    minus: document.querySelector('.minus'),
+import { TimerControls, EventTimerControls } from "./timerControls.js"
+import { Timer } from "./timer.js"
+import { AmbientSound, EventAmbientSounds } from "./ambientSounds.js"
 
 
-    playTimer() {
-        clearTimeout(Timer.timerTimeOut)
-        Timer.pressButton()
-        Timer.countDown()
-    },
+const lightButton = document.querySelector('.light')
+const darkButton = document.querySelector('.dark')
+const bgDarkMode = document.querySelector('body')
+const timerTCDarkMode = document.querySelector('.timer')
+const playLightMode = document.querySelector('button.play svg')
+const stopLightMode = document.querySelector('button.stop svg')
+const plusLightMode = document.querySelector('button.plus svg')
+const minusLightMode = document.querySelector('button.minus svg')
+const playDarkMode = document.querySelector('button.play svg.dark-button')
+const stopDarkMode = document.querySelector('button.stop svg.dark-button')
+const plusDarkMode = document.querySelector('button.plus svg.dark-button')
+const minusDarkMode = document.querySelector('button.minus svg.dark-button')
+const bgLMPlayButtons = document.querySelector('button.play')
+const bgLMStopButtons = document.querySelector('button.stop')
+const bgLMPlusButtons = document.querySelector('button.plus')
+const bgLMMinusButtons = document.querySelector('button.minus')
+const forestButton = document.querySelector('button.forest svg')
+const rainButton = document.querySelector('button.rain svg')
+const storeButton = document.querySelector('button.store svg')
+const campButton = document.querySelector('button.camp svg')
+const forestButtonbgDM = document.querySelector('button.forest')
+const rainButtonbgDM = document.querySelector('button.rain')
+const storeButtonbgDM = document.querySelector('button.store')
+const campButtonbgDM = document.querySelector('button.camp')
+const forestDM = document.querySelector('.sounds-wrapper button .forest-darkMode')
+const rainDM = document.querySelector('.sounds-wrapper button .rain-darkMode')
+const storeDM = document.querySelector('.sounds-wrapper button .store-darkMode')
+const campDM = document.querySelector('.sounds-wrapper button .camp-darkMode')
 
-    stopTimer() {
-        Timer.pressButton()
-        clearTimeout(Timer.timerTimeOut)
-    },
+lightButton.addEventListener('click', darkMode)
+darkButton.addEventListener('click', lightMode)
 
-    plusFive() {
-        Timer.pressButton()
-        const newMinutes = Number(Timer.minutes.textContent)
-        Timer.minutes.textContent = String(newMinutes + 5).padStart(2, 0)    
-    },
-
-    minusFive() {
-        Timer.pressButton()
-
-        const newMinutes = Number(Timer.minutes.textContent)
-
-        if((newMinutes - 5) <= 0) {
-            Timer.minutes.textContent = '00'
-            Timer.seconds.textContent = '00'
-        } else {
-            Timer.minutes.textContent = String(newMinutes - 5).padStart(2, 0)    
-        }
-    }
+function darkMode() {
+    toggleButtonsDisable()
 
 }
 
-const Timer = {
-    minutes: document.querySelector('#minutes'),
-    seconds: document.querySelector('#seconds'),
-    timerTimeOut: 0,
-
-    kitchenTimer: new Audio("https://github.com/maykbrito/automatic-video-creator/blob/master/audios/kichen-timer.mp3?raw=true"),
-    buttonPressAudio: new Audio("https://github.com/maykbrito/automatic-video-creator/blob/master/audios/button-press.wav?raw=true"),
-
-    countDown() {
-        Timer.timerTimeOut = setTimeout(function() {
-            let min = Number(Timer.minutes.textContent)
-            let sec = Number(Timer.seconds.textContent)
-
-            let isFinished = Timer.minutes.textContent == 0 && Timer.seconds.textContent == 0
-
-            if(isFinished) {
-                Timer.timerEnd()
-                return
-            }
-
-            if( sec <= 0) {
-                sec = 60
-                Timer.minutes.textContent = String(min - 1).padStart(2, 0)
-            }
-
-            Timer.seconds.textContent = String(sec - 1).padStart(2, 0)
-
-            Timer.countDown()
-        }, 1000)
-    },
-
-    pressButton() {
-        Timer.buttonPressAudio.play()
-    },
-
-    timerEnd() {
-        Timer.kitchenTimer.play()
-    },
-}
-
-const AmbientSound = {
-    forestButton: document.querySelector('.forest'),
-    rainButton: document.querySelector('.rain'),
-    storeButton: document.querySelector('.store'),
-    campButton: document.querySelector('.camp'),
-
-    bgforest: new Audio('assets/Floresta.wav'),
-    bgRain: new Audio('assets/Chuva.wav'),
-    bgStore: new Audio('assets/Cafeteria.wav'),
-    bgFire: new Audio('assets/Lareira.wav'),
+function lightMode() {
+    toggleButtonsDisable()
 
     
 
-    soundOfNature() {
-        if(AmbientSound.forestButton.classList.contains('soundSelect')) {
-            AmbientSound.forestButton.classList.toggle('soundSelect')
-            AmbientSound.bgforest.pause()
-            AmbientSound.forestButton.classList.remove('select')
-
-        } else {
-            checkActivebgSounds()
-            pauseAllbgSounds()
-            
-            AmbientSound.bgforest.loop = true
-            AmbientSound.bgforest.play()
-            AmbientSound.forestButton.classList.toggle('soundSelect')
-            AmbientSound.forestButton.classList.add('select')
-        }
-    },
-    soundOfRain() {
-        if(AmbientSound.rainButton.classList.contains('soundSelect')) {
-            AmbientSound.rainButton.classList.toggle('soundSelect')
-            AmbientSound.bgRain.pause()
-            AmbientSound.rainButton.classList.remove('select')
-
-        } else {
-            checkActivebgSounds()
-            pauseAllbgSounds()
-
-            AmbientSound.bgRain.loop = true
-            AmbientSound.bgRain.play()
-            AmbientSound.rainButton.classList.toggle('soundSelect')
-            AmbientSound.rainButton.classList.add('select')
-
-        }
-    },
-    soundOfStore() {
-        if(AmbientSound.storeButton.classList.contains('soundSelect')) {
-            AmbientSound.storeButton.classList.toggle('soundSelect')
-            AmbientSound.bgStore.pause()
-            AmbientSound.storeButton.classList.remove('select')
-
-        } else {
-            checkActivebgSounds()
-            pauseAllbgSounds()
-
-            AmbientSound.bgStore.loop = true
-            AmbientSound.bgStore.play()
-            AmbientSound.storeButton.classList.toggle('soundSelect')
-            AmbientSound.storeButton.classList.add('select')
-
-        }
-    },
-    soundOfFire() {
-        if(AmbientSound.campButton.classList.contains('soundSelect')) {
-            AmbientSound.campButton.classList.toggle('soundSelect')
-            AmbientSound.bgFire.pause()
-            AmbientSound.campButton.classList.remove('select')
-
-        } else {
-            checkActivebgSounds()
-            pauseAllbgSounds()
-
-            AmbientSound.bgFire.loop = true
-            AmbientSound.bgFire.play()
-            AmbientSound.campButton.classList.toggle('soundSelect')
-            AmbientSound.campButton.classList.add('select')
-
-        }
-    },
-
-    
 }
 
-TimerControls.play.addEventListener('click', TimerControls.playTimer)
-TimerControls.stop.addEventListener('click', TimerControls.stopTimer)
-TimerControls.plus.addEventListener('click', TimerControls.plusFive)
-TimerControls.minus.addEventListener('click', TimerControls.minusFive)
+function toggleButtonsDisable() {
+    darkButton.classList.toggle('disable')
+    lightButton.classList.toggle('disable')
 
-AmbientSound.forestButton.addEventListener('click', AmbientSound.soundOfNature)
-AmbientSound.rainButton.addEventListener('click', AmbientSound.soundOfRain)
-AmbientSound.storeButton.addEventListener('click', AmbientSound.soundOfStore)
-AmbientSound.campButton.addEventListener('click', AmbientSound.soundOfFire)
+    bgDarkMode.classList.toggle('dark-mode')
+    timerTCDarkMode.classList.toggle('dark-mode')
 
-function checkActivebgSounds() {
-    if(AmbientSound.rainButton.classList.contains('soundSelect')) {
-        AmbientSound.rainButton.classList.toggle('soundSelect')
-        AmbientSound.rainButton.classList.remove('select')
 
-    } if(AmbientSound.storeButton.classList.contains('soundSelect')) {
-        AmbientSound.storeButton.classList.toggle('soundSelect')
-        AmbientSound.storeButton.classList.remove('select')
+    playLightMode.classList.toggle('disable')
+    stopLightMode.classList.toggle('disable')
+    plusLightMode.classList.toggle('disable')
+    minusLightMode.classList.toggle('disable')
 
-    } if(AmbientSound.campButton.classList.contains('soundSelect')) {
-        AmbientSound.campButton.classList.toggle('soundSelect')
-        AmbientSound.campButton.classList.remove('select')
+    playDarkMode.classList.toggle('disable')
+    stopDarkMode.classList.toggle('disable')
+    plusDarkMode.classList.toggle('disable')
+    minusDarkMode.classList.toggle('disable')
 
-    } if(AmbientSound.forestButton.classList.toggle('soundSelect')) {
-        AmbientSound.forestButton.classList.toggle('soundSelect')
-        AmbientSound.forestButton.classList.remove('select')
+    bgLMPlayButtons.classList.toggle('dark-mode')
+    bgLMStopButtons.classList.toggle('dark-mode')
+    bgLMPlusButtons.classList.toggle('dark-mode')
+    bgLMMinusButtons.classList.toggle('dark-mode')
 
-    }
+    forestButton.classList.toggle('disable')
+    rainButton.classList.toggle('disable')
+    storeButton.classList.toggle('disable')
+    campButton.classList.toggle('disable')
+
+    forestDM.classList.toggle('disable')
+    rainDM.classList.toggle('disable')
+    storeDM.classList.toggle('disable')
+    campDM.classList.toggle('disable')
+ 
+    forestButtonbgDM.classList.toggle('dark-mode')
+    rainButtonbgDM.classList.toggle('dark-mode')
+    storeButtonbgDM.classList.toggle('dark-mode')
+    campButtonbgDM.classList.toggle('dark-mode')
+
+    AmbientSound.sliderVolForest.classList.toggle('dark-mode')
+    AmbientSound.sliderVolRain.classList.toggle('dark-mode')
+    AmbientSound.sliderVolStore.classList.toggle('dark-mode')
+    AmbientSound.sliderVolCamp.classList.toggle('dark-mode')
 }
 
-function pauseAllbgSounds() {
-    AmbientSound.bgforest.pause()
-    AmbientSound.bgRain.pause()
-    AmbientSound.bgStore.pause()
-    AmbientSound.bgFire.pause()
-}
