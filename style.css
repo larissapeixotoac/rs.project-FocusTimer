@@ -106,7 +106,8 @@ button {
     fill: white;
 }
 
-button.select input, button.select input::-webkit-slider-thumb {
+input.select, input.select::-webkit-slider-thumb {
+    transition: .8s;
     background: white;
 }
 
