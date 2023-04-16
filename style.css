@@ -221,7 +221,6 @@ input.dark-mode, input.dark-mode::-webkit-slider-thumb {
         gap: clamp(5rem, 5rem + 8vw, 19rem);
         min-width: 90vw;
         min-height: 90vh;
-        padding: 2rem;
     }
 
     .light-mode {
